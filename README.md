@@ -29,6 +29,18 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+The features that each song uses in my system will be genre, valence, energy, acousticness, and mood. UserProfile will store a preferred value for each of the features. 
+The flow will be input user preferences with data on genre, mood, energy, valance, and acousticness. The process will load songs and scor them. The output will sort the songs and return recommendations.
+The algorithm recipe is:
+score = 2.0 * (song.genre == target.genre)                   # +2.0  genre match  (hard gate)
+      + 1.2 * (song.mood  == target.mood)                    # +1.2  mood match   (vibe)
+      + 0.3 * (1 - abs(song.energy       - target.energy))         # 0 to +0.3  tie-breaker
+      + 0.2 * (1 - abs(song.acousticness - target.acousticness))   # 0 to +0.2  tie-breaker
+      + 0.1 * (1 - abs(song.valence      - target.valence))        # 0 to +0.1  tie-breaker
+This is biased towards genres because of the wieght. 
+
+
+
 ---
 
 ## Getting Started
@@ -70,13 +82,36 @@ You can add more tests in `tests/test_recommender.py`.
 
 Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
 
+User profile: genre=pop, mood=happy, energy=0.8
+
 ```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
+Loaded songs: 18
+
+============================================
+  TOP RECOMMENDATIONS
+============================================
+
+1. Sunrise City  —  Neon Echo
+   Score: 3.49
+   Why:   genre match (+2.0), mood match (+1.2), energy closeness (+0.29)
+
+2. Gym Hero  —  Max Pulse
+   Score: 2.26
+   Why:   genre match (+2.0), energy closeness (+0.26)
+
+3. Rooftop Lights  —  Indigo Parade
+   Score: 1.49
+   Why:   mood match (+1.2), energy closeness (+0.29)
+
+4. Concrete Pulse  —  Grey District
+   Score: 0.30
+   Why:   energy closeness (+0.30)
+
+5. Night Drive Loop  —  Neon Echo
+   Score: 0.28
+   Why:   energy closeness (+0.28)
+
+============================================
 ```
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
