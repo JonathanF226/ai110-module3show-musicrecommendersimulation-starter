@@ -124,6 +124,83 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+### Recommendations Per Profile
+
+I ran the recommender against each of the three taste profiles and observed the top 5
+results. Terminal output for each is pasted below.
+
+**High-Energy Pop** — `{"genre": "pop", "mood": "happy", "energy": 0.9}`
+
+```
+1. Sunrise City  —  Neon Echo
+   Score: 3.48
+   Why:   genre match (+2.0), mood match (+1.2), energy closeness (+0.28)
+
+2. Gym Hero  —  Max Pulse
+   Score: 2.29
+   Why:   genre match (+2.0), energy closeness (+0.29)
+
+3. Rooftop Lights  —  Indigo Parade
+   Score: 1.46
+   Why:   mood match (+1.2), energy closeness (+0.26)
+
+4. Storm Runner  —  Voltline
+   Score: 0.30
+   Why:   energy closeness (+0.30)
+
+5. Festival Horizon  —  Sol Machine
+   Score: 0.29
+   Why:   energy closeness (+0.29)
+```
+
+**Chill Lofi** — `{"genre": "lofi", "mood": "chill", "energy": 0.35}`
+
+```
+1. Library Rain  —  Paper Lanterns
+   Score: 3.50
+   Why:   genre match (+2.0), mood match (+1.2), energy closeness (+0.30)
+
+2. Midnight Coding  —  LoRoom
+   Score: 3.48
+   Why:   genre match (+2.0), mood match (+1.2), energy closeness (+0.28)
+
+3. Focus Flow  —  LoRoom
+   Score: 2.29
+   Why:   genre match (+2.0), energy closeness (+0.28)
+
+4. Spacewalk Thoughts  —  Orbit Bloom
+   Score: 1.48
+   Why:   mood match (+1.2), energy closeness (+0.28)
+
+5. Coffee Shop Stories  —  Slow Stereo
+   Score: 0.29
+   Why:   energy closeness (+0.29)
+```
+
+**Deep Intense Rock** — `{"genre": "rock", "mood": "intense", "energy": 0.9}`
+
+```
+1. Storm Runner  —  Voltline
+   Score: 3.50
+   Why:   genre match (+2.0), mood match (+1.2), energy closeness (+0.30)
+
+2. Gym Hero  —  Max Pulse
+   Score: 1.49
+   Why:   mood match (+1.2), energy closeness (+0.29)
+
+3. Festival Horizon  —  Sol Machine
+   Score: 0.29
+   Why:   energy closeness (+0.29)
+
+4. Iron Verdict  —  Blacktide
+   Score: 0.28
+   Why:   energy closeness (+0.28)
+
+5. Sunrise City  —  Neon Echo
+   Score: 0.28
+   Why:   energy closeness (+0.28)
+```
+
 ---
 
 ## Limitations and Risks

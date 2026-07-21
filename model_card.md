@@ -2,60 +2,54 @@
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+**VibeFinder 1.0**
+
+A tool that suggests songs to match your mood and taste.
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
+**Goal:** Given a person's taste (genre, mood, energy), suggest the top 5 songs that fit.
 
-Prompts:  
+**Made for:** Classroom exploration, not real users.
 
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+**Should be used for:** Learning how a simple recommender turns preferences into picks.
+
+**Should not be used for:** Real music apps, ranking artists, or any real decision. It only knows 18 songs and does not understand lyrics or how songs actually sound.
 
 ---
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
+Each song gives points based on how well it fits you:
 
-Prompts:  
+- Same genre: +2.0 (the biggest bonus)
+- Same mood: +1.2
+- Close energy: up to +0.3
+- Close acousticness: up to +0.2
+- Close valence (happy/sad feel): up to +0.1
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+We add up the points for every song and show the 5 with the highest totals.
+Genre matters most, so it usually decides the winner. The other traits just break ties.
 
 ---
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+- **Size:** 18 songs.
+- **Features:** genre, mood, energy, tempo, valence, danceability, acousticness.
+- **Genres:** 15 genres, but 13 of them have only one song. Only lofi (3) and pop (2) have more.
+- **Changes:** I did not add or remove any songs.
+- **Limits:** Too small to be realistic, and no lyrics, language, or artist info.
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+- It works well for popular genres like pop and lofi, where there are enough songs to choose from.
+- It correctly puts a perfect match (same genre and mood) at the top.
+- The picks matched my gut: chill lofi got quiet songs, high-energy pop got upbeat ones.
 
 ---
 
@@ -69,6 +63,8 @@ Prompts:
 - Genres or moods that are underrepresented  
 - Cases where the system overfits to one preference  
 - Ways the scoring might unintentionally favor some users  
+
+The biggest weakness I found is a "genre lottery" bias from the +2.0 genre weight on a skewed catalog, where 13 of the 15 genres have only one song. Because energy, acousticness, and valence together add up to just +0.6, they can never override a genre match, so a user asking for an "acoustic metal" song still gets the loud non-acoustic one. This favors users whose taste falls in the well-stocked lofi and pop lanes, while niche-genre users are pushed toward the same high-energy filler regardless of their "energy gap."
 
 ---
 
@@ -85,27 +81,25 @@ Prompts:
 
 No need for numeric metrics unless you created some.
 
+**Profiles I tested:** High-Energy Pop, Chill Lofi, and Deep Intense Rock.
+
+**What surprised me:** the same few loud songs (like "Gym Hero") kept showing up even for people who did not ask for them. That happens because once a song can't match your genre or mood, the only points left come from having similar energy. High-energy songs are close to almost everyone who wants energetic music, so they fill the leftover spots by default.
+
+**Comparing the profiles:**
+- **Pop vs. Lofi:** Pop pulls upbeat, danceable songs; Lofi pulls quiet, low-energy ones. This makes sense — the two profiles ask for opposite energy levels, so the lists barely overlap.
+- **Pop vs. Rock:** Both want high energy, so their filler songs look alike (the same loud tracks), but each still puts its own genre first. The top pick differs, the bottom of the list looks similar.
+- **Lofi vs. Rock:** These are the most different. Lofi wants calm and quiet, Rock wants loud and intense, so almost nothing is shared between them.
+
 ---
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+- Add more songs so every genre has real choices.
+- Make genre less overpowering so energy and mood matter more.
+- Stop showing weak filler songs when there aren't 5 good matches.
 
 ---
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
-
-Prompts:  
-
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+I learned that a recommender is really just points and math. The surprising part was how one big rule (genre) can quietly control the whole result. It made me realize real apps can have hidden biases too, based on how they weigh things and what data they have.
