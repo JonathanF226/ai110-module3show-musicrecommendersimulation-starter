@@ -114,8 +114,6 @@ Loaded songs: 18
 ============================================
 ```
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
-
 ---
 
 ## Experiments You Tried
